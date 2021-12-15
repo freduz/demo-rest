@@ -9,22 +9,14 @@ class Service {
   }
 
   async getAll() {
-    try {
-      const docs = await this.model.find();
-      const count = await this.model.count();
-      return {
-        error: false,
-        statusCode: 200,
-        count,
-        data: docs,
-      };
-    } catch (err) {
-      return {
-        error: true,
-        statusCode: 500,
-        errors: err,
-      };
-    }
+    const docs = await this.model.find();
+    const count = await this.model.count();
+    return {
+      error: false,
+      statusCode: 200,
+      count,
+      data: docs,
+    };
   }
 
   async getOne(docId) {
