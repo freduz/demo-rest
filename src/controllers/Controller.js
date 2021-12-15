@@ -9,6 +9,7 @@ class Controller {
   }
 
   async insert(req, res) {
+    if (req.file) req.body.userImage = req.file.filename;
     const response = await this.service.insert(req.body);
 
     res.status(response.statusCode).send(response);
