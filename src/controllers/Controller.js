@@ -10,9 +10,7 @@ class Controller {
 
   async insert(req, res, next) {
     const response = await this.service.insert(req.body);
-    if (response.error) {
-      return next(response.errors);
-    }
+
     res.status(response.statusCode).send(response);
   }
 
