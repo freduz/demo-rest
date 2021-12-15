@@ -8,7 +8,7 @@ class Controller {
     this.delete = this.delete.bind(this);
   }
 
-  async insert(req, res, next) {
+  async insert(req, res) {
     const response = await this.service.insert(req.body);
 
     res.status(response.statusCode).send(response);
