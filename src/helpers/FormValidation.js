@@ -1,5 +1,7 @@
 /* eslint-disable consistent-return */
 import Joi from 'joi';
+import { check, validationResult } from 'express-validator';
+import AppError from '../utils/AppError';
 
 const formValidation = {
   userFormValidation(req, res, next) {
@@ -17,6 +19,15 @@ const formValidation = {
 
     const { error } = userSchema.validate(req.body);
     if (error) return next(error);
+    next();
+  },
+  async productValidation(req, res, next) {
+    await check('title').notEmpty().isString().run(req);
+    await check('price').notEmpty().isNumeric().run(req);
+    await check('qty').notEmpty().isNumeric().run(req);
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) return next(new AppError(400, `${errors.array()}`));
     next();
   },
 };

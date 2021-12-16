@@ -1,3 +1,5 @@
+import { validationResult } from 'express-validator';
+
 class Controller {
   constructor(service) {
     this.service = service;

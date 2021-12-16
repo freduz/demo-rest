@@ -1,13 +1,17 @@
 import express from 'express';
 import catchAsync from '../utils/catchAsync';
 import ProductController from '../controllers/ProductController';
+import formValidation from '../helpers/FormValidation';
 
 const router = express.Router();
 
 export default () => {
   router
     .route('/')
-    .post(catchAsync(ProductController.insert))
+    .post(
+      formValidation.productValidation,
+      catchAsync(ProductController.insert)
+    )
     .get(catchAsync(ProductController.getAll));
 
   router
