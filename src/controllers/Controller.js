@@ -1,4 +1,4 @@
-import { validationResult } from 'express-validator';
+import FileUploadHandler from '../utils/fileUpload';
 
 class Controller {
   constructor(service) {
@@ -12,6 +12,7 @@ class Controller {
 
   async insert(req, res) {
     if (req.file) req.body.userImage = req.file.filename;
+    FileUploadHandler.manageMultipleImage(req, 'images');
     const response = await this.service.insert(req.body);
 
     res.status(response.statusCode).send(response);
